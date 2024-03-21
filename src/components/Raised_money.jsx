@@ -17,7 +17,6 @@ const Raised_money = () => {
                     <div id="current-wallet" className="font-medium text-[16px] leading-[24px] text-[#000]">25&nbsp;000&nbsp;₴</div>
                 </div>
             </div>
-
         </div>
     );
 }

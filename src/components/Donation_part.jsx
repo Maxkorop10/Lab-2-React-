@@ -1,9 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import '../styles/Donation_part.css';
 
 const Donation_part = () => {
     const [money, set_money] = useState(0)
+
+    useEffect(() => {
+        // Check if current_money is not already stored in localStorage
+        if (localStorage.getItem("current_money") == null) {
+            localStorage.setItem("current_money", "0 ₴");
+        }
+
+        // Set the initial value of current-wallet from localStorage
+        const current_wallet = document.getElementById('current-wallet');
+        current_wallet.textContent = localStorage.getItem("current_money");
+    }, []);
 
     const handleChange = (e) => {
         set_money(parseInt(e.target.value))
@@ -32,20 +43,20 @@ const Donation_part = () => {
             const new_wallet_amount = current_wallet_amount + number;
             current_wallet.textContent = new_wallet_amount.toFixed(2) + ' ₴';
 
+            localStorage.setItem("current_money", current_wallet.textContent);
             set_money(0);
             money_input.value = 0;
             user_name.value = '';
             comment.value = '';
 
-            console.log("Сплачено суму: ", number);
-            console.log("Ім'я: ", user_name_text, "\nКоментар: ", comment_text);
+            console.log("Сплачено суму: ", number + "\nІм'я: ", user_name_text + "\nКоментар: ", comment_text);
         }
     }
 
     return (
         <div>
-            <div className="bg-gradient-to-r from-blue-400 to-fuchsia-600 h-[216px] w-[393px] rounded-[24px] flex justify-center items-center top-[48px] right-[50px] mb-[32px]">
-                <div className="bg-[#fff] h-[211px] w-[388px] rounded-[22px]">
+            <div className="bg-gradient-to-r from-blue-400 to-fuchsia-600 h-[216px] w-[406px] rounded-[24px] flex justify-center items-center top-[48px] right-[50px] mb-[32px]">
+                <div className="bg-[#fff] h-[211px] w-[401px] rounded-[22px]">
                     <div className="text-[14px] text-[#121214] font-['Inter',_'LatoWeb',_'Segoe_UI',_Tahoma,_Geneva,_Verdana,_sans-serif] justify-center pt-[24px] flex font-semibold leading-[16px]">
                         <p>Сума поповнення</p>
                         <img src="https://send.monobank.ua/img/money.png" className="flex w-[16px] ml-[0.5em] mb-[20px]" alt="money"/>
