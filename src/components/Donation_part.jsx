@@ -6,12 +6,10 @@ const Donation_part = () => {
     const [money, set_money] = useState(0)
 
     useEffect(() => {
-        // Check if current_money is not already stored in localStorage
         if (localStorage.getItem("current_money") == null) {
             localStorage.setItem("current_money", "0 ₴");
         }
 
-        // Set the initial value of current-wallet from localStorage
         const current_wallet = document.getElementById('current-wallet');
         current_wallet.textContent = localStorage.getItem("current_money");
     }, []);
